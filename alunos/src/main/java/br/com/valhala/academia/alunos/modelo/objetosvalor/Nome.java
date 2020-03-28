@@ -1,0 +1,42 @@
+package br.com.valhala.academia.alunos.modelo.objetosvalor;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Embeddable
+public class Nome {
+
+    @Getter
+    @NotNull
+    @Column(name = "primeiro_nome")
+    private String primeiroNome;
+
+    @Getter
+    @Column(name = "nome_do_meio")
+    private String nomeDoMeio;
+
+    @Getter
+    @NotNull
+    @Column(name = "sobrenome")
+    private String sobrenome;
+
+    public String completo() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(primeiroNome).append(" ");
+        if (nomeDoMeio != null && !nomeDoMeio.isEmpty()) {
+            builder.append(nomeDoMeio).append(" ");
+        }
+        builder.append(sobrenome);
+        return builder.toString();
+    }
+
+}

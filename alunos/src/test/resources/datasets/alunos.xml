@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dataset>
+
+    <alunos id="1"
+            guid="5e9f7532-c505-4ec0-8fe3-187b5baee778"
+            primeiro_nome="Bruno"
+            nome_do_meio="Luiz"
+            sobrenome="Viana"
+            data_nascimento="1990-01-02" />
+
+    <alunos id="2"
+            guid="712f849b-c03c-408d-a027-15e8531d6e76"
+            primeiro_nome="Raelma"
+            nome_do_meio="Leal"
+            sobrenome="Viana"
+            data_nascimento="1992-07-29" />
+
+    <alunos id="3"
+            guid="66c769e0-353a-41f9-b15e-1982da0fb0c3"
+            primeiro_nome="Ellen"
+            nome_do_meio="Leal"
+            sobrenome="Viana"
+            data_nascimento="2015-02-27" />
+
+</dataset>

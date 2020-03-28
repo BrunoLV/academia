@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+
+    <enderecos id="1"
+               tipo="RUA"
+               logradouro="Professor Oswaldo Quirino Simoes"
+               numero="1"
+               cep="4775010"
+               bairro="Vila Califórnia(Zona Sul)"
+               municipio="São Paulo"
+               uf="SP"
+               id_aluno="1" />
+
+    <enderecos id="2"
+               tipo="RUA"
+               logradouro="Professor Oswaldo Quirino Simoes"
+               numero="1"
+               cep="4775010"
+               bairro="Vila Califórnia(Zona Sul)"
+               municipio="São Paulo"
+               uf="SP"
+               id_aluno="2" />
+
+    <enderecos id="3"
+               tipo="RUA"
+               logradouro="Professor Oswaldo Quirino Simoes"
+               numero="1"
+               cep="4775010"
+               bairro="Vila Califórnia(Zona Sul)"
+               municipio="São Paulo"
+               uf="SP"
+               id_aluno="3" />
+
+</dataset>
