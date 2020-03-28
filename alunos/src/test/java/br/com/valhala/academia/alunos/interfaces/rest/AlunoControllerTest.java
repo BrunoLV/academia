@@ -73,6 +73,7 @@ public class AlunoControllerTest {
     }
 
     @Test
+    @DataSet(value = {"alunos.xml", "enderecos.xml"})
     void deve_retornar_aluno_cadastrado_status_code_201() {
 
         String nomeEsperado = "Douglas";
