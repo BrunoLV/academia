@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dataset>
+
+    <alunos id="1"
+            guid="5e9f7532-c505-4ec0-8fe3-187b5baee778"
+            primeiro_nome="Bruno"
+            nome_do_meio="Luiz"
+            sobrenome="Viana"
+            data_nascimento="1990-01-02" />
+
+    <enderecos id="1"
+               tipo="RUA"
+               logradouro="Professor Oswaldo Quirino Simoes"
+               numero="1"
+               cep="4775010"
+               bairro="Vila Califórnia(Zona Sul)"
+               municipio="São Paulo"
+               uf="SP"
+               id_aluno="1" />
+
+</dataset>

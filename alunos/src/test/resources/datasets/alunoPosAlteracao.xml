@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dataset>
+
+    <alunos id="1"
+            guid="5e9f7532-c505-4ec0-8fe3-187b5baee778"
+            primeiro_nome="Bruno"
+            nome_do_meio="L."
+            sobrenome="V."
+            data_nascimento="1990-01-02" />
+
+    <enderecos id="1"
+               tipo="RUA"
+               logradouro="Hercília Dártora Szcentes"
+               numero="1A"
+               cep="7743345"
+               bairro="Laranjeiras"
+               municipio="Caieiras"
+               uf="SP"
+               id_aluno="1" />
+
+</dataset>

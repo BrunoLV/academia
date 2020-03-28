@@ -21,7 +21,15 @@ public class AlunoTemplateResource implements TemplateLoader {
                 add("dataNascimento", LocalDate.of(1991, Month.APRIL, 19));
                 add("endereco", one(EnderecoResource.class, "novo"));
             }
-        });
+        }).addTemplate("alunoAlterado", new Rule() {
+            {
+                add("nome", "Bruno");
+                add("nomeDoMeio", "L.");
+                add("sobrenome", "V.");
+                add("dataNascimento", LocalDate.of(1990, Month.JANUARY, 02));
+                add("endereco", one(EnderecoResource.class, "enderecoAlterado"));
+            }
+        } );
     }
 
 }

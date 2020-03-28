@@ -22,6 +22,16 @@ public class EnderecoTemplateResource implements TemplateLoader {
                 add("municipio", "Franco da Rocha");
                 add("uf", UF.SP);
             }
+        }).addTemplate("enderecoAlterado", new Rule() {
+            {
+                add("tipo", TipoLogradouro.RUA);
+                add("logradouro", "Hercília Dártora Szcentes");
+                add("numero", "1A");
+                add("cep", 7743345);
+                add("bairro", "Laranjeiras");
+                add("municipio", "Caieiras");
+                add("uf", UF.SP);
+            }
         });
 
     }

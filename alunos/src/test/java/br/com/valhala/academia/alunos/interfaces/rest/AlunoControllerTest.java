@@ -5,6 +5,7 @@ import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 import br.com.valhala.academia.alunos.interfaces.rest.dto.AlunoResource;
 import br.com.valhala.academia.alunos.interfaces.rest.dto.EnderecoResource;
 import com.github.database.rider.core.api.dataset.DataSet;
+import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.junit5.api.DBRider;
 import com.jayway.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeAll;
@@ -36,13 +37,14 @@ public class AlunoControllerTest {
     }
 
     @Test
-    @DataSet(value = {"alunos.xml", "enderecos.xml"})
+    @DataSet(value = {"alunos.xml"})
     void deve_retornar_aluno_e_status_code_200() {
 
         String guidEsperado = "5e9f7532-c505-4ec0-8fe3-187b5baee778";
         String nomeEsperado = "Bruno";
 
         expect()
+            .log().all()
             .body("guid", equalTo(guidEsperado))
             .body("nome", equalTo(nomeEsperado))
             .body("endereco", not(nullValue()))
@@ -58,10 +60,11 @@ public class AlunoControllerTest {
     }
 
     @Test
-    @DataSet(value = {"alunos.xml", "enderecos.xml"})
+    @DataSet(value = {"alunos.xml"})
     void deve_retornar_status_code_404_quando_nao_existir_aluno() {
 
         given()
+            .log().all()
             .port(port)
             .header("accept", "application/json")
             .pathParam("guid", "nao_existe")
@@ -73,14 +76,15 @@ public class AlunoControllerTest {
     }
 
     @Test
-    @DataSet(value = {"alunos.xml", "enderecos.xml"})
-    void deve_retornar_aluno_cadastrado_status_code_201() {
+    @DataSet(value = {"alunos.xml"})
+    void deve_cadastrar_e_retornar_status_code_201() {
 
         String nomeEsperado = "Douglas";
 
         AlunoResource resource = Fixture.from(AlunoResource.class).gimme("novo");
 
         expect()
+            .log().all()
             .body("guid", not(nullValue()))
             .body("nome", equalTo(nomeEsperado))
             .body("endereco", not(nullValue()))
@@ -94,6 +98,65 @@ public class AlunoControllerTest {
             .post()
         .then()
             .statusCode(201);
+
+    }
+
+    @Test
+    @DataSet(value = {"alunoAntesAlteracao.xml"})
+    @ExpectedDataSet(value = {"alunoPosAlteracao.xml"})
+    void deve_alterar_aluno_e_retornar_status_code_204() {
+
+        AlunoResource resource = Fixture.from(AlunoResource.class).gimme("alunoAlterado");
+
+        expect()
+            .log().all()
+        .given()
+            .port(port)
+            .pathParam("guid", "5e9f7532-c505-4ec0-8fe3-187b5baee778")
+            .contentType("application/json")
+            .body(resource)
+        .when()
+            .put("/guid/{guid}")
+        .then()
+            .statusCode(204);
+
+    }
+
+    @Test
+    @DataSet(value = {"alunoAntesAlteracao.xml"})
+    @ExpectedDataSet(value = {"alunoPosAlteracaoEndereco.xml"})
+    void deve_alterar_endereco_e_retornar_status_code_204() {
+
+        EnderecoResource resource = Fixture.from(EnderecoResource.class).gimme("enderecoAlterado");
+
+        expect()
+            .log().all()
+        .given()
+            .port(port)
+            .pathParam("guid", "5e9f7532-c505-4ec0-8fe3-187b5baee778")
+            .contentType("application/json")
+            .body(resource)
+        .when()
+            .patch("/guid/{guid}/endereco")
+        .then()
+            .statusCode(204);
+
+    }
+
+    @Test
+    @DataSet(value = {"alunos.xml"})
+    @ExpectedDataSet(value = {"alunosPosDelete.xml"})
+    void deve_deletar_aluno_e_retornar_status_code_204() {
+
+        expect()
+            .log().all()
+        .given()
+            .port(port)
+            .pathParam("guid", "5e9f7532-c505-4ec0-8fe3-187b5baee778")
+        .when()
+            .delete("/guid/{guid}")
+        .then()
+            .statusCode(204);
 
     }
 
