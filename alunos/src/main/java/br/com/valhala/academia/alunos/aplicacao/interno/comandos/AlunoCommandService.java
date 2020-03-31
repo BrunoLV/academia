@@ -1,6 +1,9 @@
 package br.com.valhala.academia.alunos.aplicacao.interno.comandos;
 
 import br.com.valhala.academia.alunos.aplicacao.exceptions.AlunoNaoEncontradoException;
+import br.com.valhala.academia.alunos.aplicacao.exceptions.DadosInvalidosException;
+import br.com.valhala.academia.alunos.aplicacao.validacao.grupos.Edicao;
+import br.com.valhala.academia.alunos.aplicacao.validacao.grupos.Novo;
 import br.com.valhala.academia.alunos.infraestrutura.repositorios.jpa.AlunoRepository;
 import br.com.valhala.academia.alunos.modelo.agregados.Aluno;
 import br.com.valhala.academia.alunos.modelo.comandos.AtualizaAlunoCommand;
@@ -10,8 +13,17 @@ import br.com.valhala.academia.alunos.modelo.comandos.NovoAlunoCommand;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.groups.Default;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Service
 public class AlunoCommandService {
+
+    private Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     private AlunoRepository alunoRepository;
 
@@ -22,6 +34,7 @@ public class AlunoCommandService {
     @Transactional
     public Aluno cadastraAluno(final NovoAlunoCommand command) {
         Aluno aluno = new Aluno(command.getNome(), command.getDataNascimento(), command.getEndereco());
+        valida(aluno, Default.class, Novo.class);
         alunoRepository.save(aluno);
         return aluno;
     }
@@ -35,6 +48,7 @@ public class AlunoCommandService {
         aluno.atualizaNome(command.getNome());
         aluno.atualizaDataNascimento(command.getDataNascimento());
         aluno.atualizaEndereco(command.getEndereco());
+        valida(aluno, Edicao.class);
         alunoRepository.save(aluno);
     }
 
@@ -54,7 +68,18 @@ public class AlunoCommandService {
             throw new AlunoNaoEncontradoException();
         }
         aluno.atualizaEndereco(command.getEndereco());
+        valida(aluno, Edicao.class);
         alunoRepository.save(aluno);
+    }
+
+    private void valida(final Aluno aluno, Class ... grupos) {
+        Set<ConstraintViolation<Aluno>> constraintViolations = validator.validate(aluno, grupos);
+        if (!constraintViolations.isEmpty()) {
+            throw new DadosInvalidosException("Dados inválidos", constraintViolations.
+                    stream().
+                    map(c -> c.getMessage()).
+                    collect(Collectors.toSet()));
+        }
     }
 
 }

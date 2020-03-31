@@ -1,5 +1,7 @@
 package br.com.valhala.academia.alunos.modelo.entidades;
 
+import br.com.valhala.academia.alunos.aplicacao.validacao.grupos.Edicao;
+import br.com.valhala.academia.alunos.aplicacao.validacao.grupos.Novo;
 import br.com.valhala.academia.alunos.modelo.agregados.Aluno;
 import br.com.valhala.academia.alunos.modelo.objetosvalor.CEP;
 import br.com.valhala.academia.alunos.modelo.objetosvalor.Logradouro;
@@ -9,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
@@ -24,29 +27,31 @@ public class Endereco {
     private Long id;
 
     @Getter
-    @NotNull
     @Embedded
+    @NotNull(message = "O logradouro é uma informação obrigatória", groups = {Novo.class, Edicao.class})
+    @Valid
     private Logradouro logradouro;
 
     @Getter
-    @NotNull
     @Embedded
+    @NotNull(message = "O CEP é uma informação obrigatória", groups = {Novo.class, Edicao.class})
+    @Valid
     private CEP cep;
 
     @Getter
-    @NotNull
     @Column(name = "bairro")
+    @NotNull(message = "O bairro é uma informação obrigatória", groups = {Novo.class, Edicao.class})
     private String bairro;
 
     @Getter
-    @NotNull
     @Column(name = "municipio")
+    @NotNull(message = "O município é uma informação obrigatória", groups = {Novo.class, Edicao.class})
     private String municipio;
 
     @Getter
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "uf")
+    @NotNull(message = "A UF é uma informação obrigatória", groups = {Novo.class, Edicao.class})
     private UF uf;
 
     @OneToOne(fetch = FetchType.LAZY)

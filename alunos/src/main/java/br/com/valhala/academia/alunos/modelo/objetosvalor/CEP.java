@@ -16,8 +16,8 @@ import javax.validation.constraints.NotNull;
 public class CEP {
 
     @Getter
-    @NotNull
     @Column(name = "cep")
+    @NotNull(message = "O cep é uma informação obrigatória")
     private Integer cep;
 
     public String formatado() {

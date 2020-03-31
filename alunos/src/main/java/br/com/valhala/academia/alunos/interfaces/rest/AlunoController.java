@@ -19,10 +19,12 @@ import lombok.extern.java.Log;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,7 +64,7 @@ public class AlunoController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity cadastraAluno(@RequestBody AlunoResource alunoResource, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity cadastraAluno(@Valid @RequestBody AlunoResource alunoResource, UriComponentsBuilder uriComponentsBuilder) {
         NovoAlunoCommand command = NovoAlunoCommandAssembler.toNovoAlunoCommand(alunoResource);
         Aluno aluno = alunoCommandService.cadastraAluno(command);
         UriComponents uriComponents = uriComponentsBuilder.path("/alunos/guid/{guid}").buildAndExpand(aluno.getAlunoId().getGuid());

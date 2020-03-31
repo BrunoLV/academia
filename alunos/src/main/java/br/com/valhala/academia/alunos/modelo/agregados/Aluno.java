@@ -1,5 +1,7 @@
 package br.com.valhala.academia.alunos.modelo.agregados;
 
+import br.com.valhala.academia.alunos.aplicacao.validacao.grupos.Edicao;
+import br.com.valhala.academia.alunos.aplicacao.validacao.grupos.Novo;
 import br.com.valhala.academia.alunos.modelo.entidades.Endereco;
 import br.com.valhala.academia.alunos.modelo.objetosvalor.Nome;
 import lombok.Getter;
@@ -7,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -27,18 +30,20 @@ public class Aluno {
     private AlunoID alunoId;
 
     @Getter
-    @NotNull
     @Embedded
+    @NotNull(message = "O nome é uma informação obrigatória", groups = {Novo.class, Edicao.class})
+    @Valid
     private Nome nome;
 
     @Getter
-    @NotNull
     @Column(name = "data_nascimento")
+    @NotNull(message = "A data de nascimento é uma informação obrigatória", groups = {Novo.class, Edicao.class})
     private LocalDate dataNascimento;
 
     @Getter
-    @NotNull
     @OneToOne(mappedBy = "aluno", cascade = CascadeType.ALL)
+    @NotNull(message = "Endereço é uma informação obrigatória", groups = {Novo.class, Edicao.class})
+    @Valid
     private Endereco endereco;
 
     public Aluno(Nome nome, LocalDate dataNascimento, Endereco endereco) {

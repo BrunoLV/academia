@@ -1,5 +1,7 @@
 package br.com.valhala.academia.alunos.modelo.objetosvalor;
 
+import br.com.valhala.academia.alunos.aplicacao.validacao.grupos.Edicao;
+import br.com.valhala.academia.alunos.aplicacao.validacao.grupos.Novo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,8 +18,8 @@ import javax.validation.constraints.NotNull;
 public class Nome {
 
     @Getter
-    @NotNull
     @Column(name = "primeiro_nome")
+    @NotNull(message = "O primeiro nome é uma informação obrigatória")
     private String primeiroNome;
 
     @Getter
@@ -25,8 +27,8 @@ public class Nome {
     private String nomeDoMeio;
 
     @Getter
-    @NotNull
     @Column(name = "sobrenome")
+    @NotNull(message = "O sobrenome é uma informação obrigatória")
     private String sobrenome;
 
     public String completo() {

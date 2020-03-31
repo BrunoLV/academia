@@ -18,14 +18,14 @@ import javax.validation.constraints.NotNull;
 public class Logradouro {
 
     @Getter
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo")
+    @NotNull(message = "Tipo de Logradouro é uma informação obrigatória")
     private TipoLogradouro tipo;
 
     @Getter
-    @NotNull
     @Column(name = "logradouro")
+    @NotNull(message = "Logradouro é uma informação obrigatória")
     private String logradouro;
 
     @Getter

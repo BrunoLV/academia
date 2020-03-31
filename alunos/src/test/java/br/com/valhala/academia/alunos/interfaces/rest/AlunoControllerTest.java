@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.LocalDate;
 
@@ -40,18 +41,18 @@ public class AlunoControllerTest {
     @DataSet(value = {"alunos.xml"})
     void deve_retornar_aluno_e_status_code_200() {
 
-        String guidEsperado = "5e9f7532-c505-4ec0-8fe3-187b5baee778";
-        String nomeEsperado = "Bruno";
+        final String guid = "5e9f7532-c505-4ec0-8fe3-187b5baee778";
+
+        final String nomeEsperado = "Bruno";
 
         expect()
             .log().all()
-            .body("guid", equalTo(guidEsperado))
             .body("nome", equalTo(nomeEsperado))
             .body("endereco", not(nullValue()))
         .given()
             .port(port)
             .header("accept", "application/json")
-            .pathParam("guid", "5e9f7532-c505-4ec0-8fe3-187b5baee778")
+            .pathParam("guid", guid)
         .when()
             .get("/guid/{guid}")
         .then()
@@ -79,9 +80,9 @@ public class AlunoControllerTest {
     @DataSet(value = {"alunos.xml"})
     void deve_cadastrar_e_retornar_status_code_201() {
 
-        String nomeEsperado = "Douglas";
+        final String nomeEsperado = "Douglas";
 
-        AlunoResource resource = Fixture.from(AlunoResource.class).gimme("novo");
+        final AlunoResource resource = Fixture.from(AlunoResource.class).gimme("novo");
 
         expect()
             .log().all()
@@ -102,17 +103,42 @@ public class AlunoControllerTest {
     }
 
     @Test
+    @DataSet(value = {"alunos.xml"})
+    @ExpectedDataSet(value = {"alunos.xml"})
+    void deve_retornar_400_e_mensagens_de_erro_quando_dados_invalidos() {
+
+        final AlunoResource resource = Fixture.from(AlunoResource.class).gimme("alunoInvalido");
+
+        expect()
+            .log().all()
+            .body("codigo", equalTo(400))
+            .body("mensagensValidacao", not(empty()))
+        .given()
+            .port(port)
+            .accept("application/json")
+            .contentType("application/json")
+            .body(resource)
+        .when()
+            .post()
+        .then()
+            .statusCode(400);
+
+    }
+
+    @Test
     @DataSet(value = {"alunoAntesAlteracao.xml"})
     @ExpectedDataSet(value = {"alunoPosAlteracao.xml"})
     void deve_alterar_aluno_e_retornar_status_code_204() {
 
-        AlunoResource resource = Fixture.from(AlunoResource.class).gimme("alunoAlterado");
+        final AlunoResource resource = Fixture.from(AlunoResource.class).gimme("alunoAlterado");
+
+        final String guid = "5e9f7532-c505-4ec0-8fe3-187b5baee778";
 
         expect()
             .log().all()
         .given()
             .port(port)
-            .pathParam("guid", "5e9f7532-c505-4ec0-8fe3-187b5baee778")
+            .pathParam("guid", guid)
             .contentType("application/json")
             .body(resource)
         .when()
@@ -127,13 +153,15 @@ public class AlunoControllerTest {
     @ExpectedDataSet(value = {"alunoPosAlteracaoEndereco.xml"})
     void deve_alterar_endereco_e_retornar_status_code_204() {
 
-        EnderecoResource resource = Fixture.from(EnderecoResource.class).gimme("enderecoAlterado");
+        final EnderecoResource resource = Fixture.from(EnderecoResource.class).gimme("enderecoAlterado");
+
+        final String guid = "5e9f7532-c505-4ec0-8fe3-187b5baee778";
 
         expect()
             .log().all()
         .given()
             .port(port)
-            .pathParam("guid", "5e9f7532-c505-4ec0-8fe3-187b5baee778")
+            .pathParam("guid", guid)
             .contentType("application/json")
             .body(resource)
         .when()
@@ -148,11 +176,13 @@ public class AlunoControllerTest {
     @ExpectedDataSet(value = {"alunosPosDelete.xml"})
     void deve_deletar_aluno_e_retornar_status_code_204() {
 
+        final String guid = "5e9f7532-c505-4ec0-8fe3-187b5baee778";
+
         expect()
             .log().all()
         .given()
             .port(port)
-            .pathParam("guid", "5e9f7532-c505-4ec0-8fe3-187b5baee778")
+            .pathParam("guid", guid)
         .when()
             .delete("/guid/{guid}")
         .then()

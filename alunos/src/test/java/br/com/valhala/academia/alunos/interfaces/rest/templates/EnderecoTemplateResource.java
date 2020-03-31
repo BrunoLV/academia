@@ -32,6 +32,16 @@ public class EnderecoTemplateResource implements TemplateLoader {
                 add("municipio", "Caieiras");
                 add("uf", UF.SP);
             }
+        }).addTemplate("enderecoInvalido", new Rule() {
+            {
+                add("tipo", null);
+                add("logradouro", null);
+                add("numero", null);
+                add("cep", null);
+                add("bairro", null);
+                add("municipio", null);
+                add("uf", null);
+            }
         });
 
     }
