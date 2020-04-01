@@ -15,14 +15,19 @@ import br.com.valhala.academia.alunos.modelo.comandos.AtualizaAlunoCommand;
 import br.com.valhala.academia.alunos.modelo.comandos.AtualizaEnderecoCommand;
 import br.com.valhala.academia.alunos.modelo.comandos.ExcluiAlunoCommand;
 import br.com.valhala.academia.alunos.modelo.comandos.NovoAlunoCommand;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ResponseHeader;
 import lombok.extern.java.Log;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
+import springfox.documentation.swagger.readers.operation.ResponseHeaders;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -41,8 +46,11 @@ public class AlunoController {
         this.alunoQueryService = alunoQueryService;
     }
 
-    @GetMapping(value = "/guid/{guid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity obtemPorGuid(@PathVariable("guid") String guid) {
+    @ApiOperation(value = "${AlunoController.obtemPorGuid.value}",
+            notes = "${AlunoController.obtemPorGuid.notes}",
+            response = AlunoResource.class)
+    @GetMapping(value = "/{guid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity obtemPorGuid(@ApiParam(value = "${AlunoController.obtemPorGuid.guid}", required = true) @PathVariable("guid") String guid) {
         AlunoID alunoID = new AlunoID(guid);
         Aluno aluno = alunoQueryService.obtemPorAlunoID(alunoID);
         if (aluno == null) {
@@ -51,6 +59,10 @@ public class AlunoController {
         return ResponseEntity.ok(AlunoResource.aPartirDe(aluno));
     }
 
+    @ApiOperation(value = "${AlunoController.obtemTodos.value}",
+            notes = "${AlunoController.obtemTodos.notes}",
+            responseContainer = "List",
+            response = AlunoResource.class)
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity obtemTodos() {
         List<Aluno> alunos = alunoQueryService.obtemTodos();
@@ -63,26 +75,38 @@ public class AlunoController {
         return ResponseEntity.ok(recursos);
     }
 
+    @ApiOperation(value = "${AlunoController.cadastraAluno.value}",
+            notes = "${AlunoController.cadastraAluno.notes}",
+            response = AlunoResource.class)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity cadastraAluno(@Valid @RequestBody AlunoResource alunoResource, UriComponentsBuilder uriComponentsBuilder) {
         NovoAlunoCommand command = NovoAlunoCommandAssembler.toNovoAlunoCommand(alunoResource);
         Aluno aluno = alunoCommandService.cadastraAluno(command);
-        UriComponents uriComponents = uriComponentsBuilder.path("/alunos/guid/{guid}").buildAndExpand(aluno.getAlunoId().getGuid());
+        UriComponents uriComponents = uriComponentsBuilder.path("/alunos/{guid}").buildAndExpand(aluno.getAlunoId().getGuid());
         return ResponseEntity.created(uriComponents.toUri()).body(AlunoResource.aPartirDe(aluno));
     }
 
-    @PutMapping(value = "/guid/{guid}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "${AlunoController.atualizaAluno.value}",
+            notes = "${AlunoController.atualizaAluno.notes}",
+            response = Void.class)
+    @PutMapping(value = "/{guid}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public ResponseEntity atualizaAluno(@PathVariable("guid") String guid, @RequestBody AlunoResource alunoResource) {
         AtualizaAlunoCommand command = AtualizaAlunoCommandAssembler.toAtualizaAlunoCommand(guid, alunoResource);
         try {
             alunoCommandService.atualizaAluno(command);
-        } catch(AlunoNaoEncontradoException e) {
+        } catch (AlunoNaoEncontradoException e) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping(value = "/guid/{guid}")
+    @ApiOperation(value = "${AlunoController.excluiAluno.value}",
+            notes = "${AlunoController.excluiAluno.notes}",
+            response = Void.class)
+    @DeleteMapping(value = "/{guid}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public ResponseEntity excluiAluno(@PathVariable("guid") String guid) {
         ExcluiAlunoCommand command = ExcluiAlunoCommandAssembler.toExcluiAlunoCommand(guid);
         try {
@@ -93,12 +117,16 @@ public class AlunoController {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping(value = "/guid/{guid}/endereco", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity atualizaEndereco(@PathVariable("guid") String guid, @RequestBody EnderecoResource enderecoResource) {
+    @ApiOperation(value = "${AlunoController.atualizaEndereco.value}",
+            notes = "${AlunoController.atualizaEndereco.notes}",
+            response = Void.class)
+    @PatchMapping(value = "/{guid}/endereco", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public ResponseEntity<Void> atualizaEndereco(@PathVariable("guid") String guid, @RequestBody EnderecoResource enderecoResource) {
         AtualizaEnderecoCommand command = AtualizaEnderecoCommandAssembler.toAtualizaEnderecoCommand(guid, enderecoResource);
         try {
             alunoCommandService.atualizaEndereco(command);
-        } catch(AlunoNaoEncontradoException e) {
+        } catch (AlunoNaoEncontradoException e) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.noContent().build();
