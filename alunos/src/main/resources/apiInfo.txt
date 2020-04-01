@@ -1,0 +1,2 @@
+Essa API tem como objetivo expor operações para Cadastrar, Atualizar, Pesquisar e Excluir dados de Alunos cadastrados
+no sistema.

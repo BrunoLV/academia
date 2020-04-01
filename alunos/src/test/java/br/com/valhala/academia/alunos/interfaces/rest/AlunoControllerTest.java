@@ -54,7 +54,7 @@ public class AlunoControllerTest {
             .header("accept", "application/json")
             .pathParam("guid", guid)
         .when()
-            .get("/guid/{guid}")
+            .get("/{guid}")
         .then()
             .statusCode(200);
 
@@ -70,7 +70,7 @@ public class AlunoControllerTest {
             .header("accept", "application/json")
             .pathParam("guid", "nao_existe")
         .when()
-            .get("/guid/{guid}")
+            .get("/{guid}")
         .then()
             .statusCode(404);
 
@@ -142,7 +142,7 @@ public class AlunoControllerTest {
             .contentType("application/json")
             .body(resource)
         .when()
-            .put("/guid/{guid}")
+            .put("/{guid}")
         .then()
             .statusCode(204);
 
@@ -165,7 +165,7 @@ public class AlunoControllerTest {
             .contentType("application/json")
             .body(resource)
         .when()
-            .patch("/guid/{guid}/endereco")
+            .patch("/{guid}/endereco")
         .then()
             .statusCode(204);
 
@@ -184,7 +184,7 @@ public class AlunoControllerTest {
             .port(port)
             .pathParam("guid", guid)
         .when()
-            .delete("/guid/{guid}")
+            .delete("/{guid}")
         .then()
             .statusCode(204);
 
