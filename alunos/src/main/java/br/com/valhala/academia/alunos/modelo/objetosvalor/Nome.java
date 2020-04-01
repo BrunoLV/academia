@@ -1,7 +1,5 @@
 package br.com.valhala.academia.alunos.modelo.objetosvalor;
 
-import br.com.valhala.academia.alunos.aplicacao.validacao.grupos.Edicao;
-import br.com.valhala.academia.alunos.aplicacao.validacao.grupos.Novo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

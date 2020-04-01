@@ -4,7 +4,6 @@ import br.com.valhala.academia.alunos.interfaces.rest.dto.AlunoResource;
 import br.com.valhala.academia.alunos.interfaces.rest.dto.EnderecoResource;
 import br.com.valhala.academia.alunos.modelo.agregados.AlunoID;
 import br.com.valhala.academia.alunos.modelo.comandos.AtualizaAlunoCommand;
-import br.com.valhala.academia.alunos.modelo.comandos.NovoAlunoCommand;
 import br.com.valhala.academia.alunos.modelo.entidades.Endereco;
 import br.com.valhala.academia.alunos.modelo.objetosvalor.CEP;
 import br.com.valhala.academia.alunos.modelo.objetosvalor.Logradouro;

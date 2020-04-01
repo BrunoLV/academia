@@ -1,12 +1,12 @@
 package br.com.valhala.academia.alunos.interfaces.rest.dto;
 
 import br.com.valhala.academia.alunos.modelo.agregados.Aluno;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 

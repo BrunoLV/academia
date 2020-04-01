@@ -6,7 +6,7 @@
             primeiro_nome="Bruno"
             nome_do_meio="Luiz"
             sobrenome="Viana"
-            data_nascimento="1990-01-02" />
+            data_nascimento="1990-01-02"/>
 
     <enderecos id="1"
                tipo="RUA"
@@ -16,14 +16,14 @@
                bairro="Vila Califórnia(Zona Sul)"
                municipio="São Paulo"
                uf="SP"
-               id_aluno="1" />
+               id_aluno="1"/>
 
     <alunos id="2"
             guid="712f849b-c03c-408d-a027-15e8531d6e76"
             primeiro_nome="Raelma"
             nome_do_meio="Leal"
             sobrenome="Viana"
-            data_nascimento="1992-07-29" />
+            data_nascimento="1992-07-29"/>
 
     <enderecos id="2"
                tipo="RUA"
@@ -33,14 +33,14 @@
                bairro="Vila Califórnia(Zona Sul)"
                municipio="São Paulo"
                uf="SP"
-               id_aluno="2" />
+               id_aluno="2"/>
 
     <alunos id="3"
             guid="66c769e0-353a-41f9-b15e-1982da0fb0c3"
             primeiro_nome="Ellen"
             nome_do_meio="Leal"
             sobrenome="Viana"
-            data_nascimento="2015-02-27" />
+            data_nascimento="2015-02-27"/>
 
     <enderecos id="3"
                tipo="RUA"
@@ -50,6 +50,6 @@
                bairro="Vila Califórnia(Zona Sul)"
                municipio="São Paulo"
                uf="SP"
-               id_aluno="3" />
+               id_aluno="3"/>
 
 </dataset>

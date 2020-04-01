@@ -6,7 +6,7 @@
             primeiro_nome="Bruno"
             nome_do_meio="Luiz"
             sobrenome="Viana"
-            data_nascimento="1990-01-02" />
+            data_nascimento="1990-01-02"/>
 
     <enderecos id="1"
                tipo="RUA"
@@ -16,6 +16,6 @@
                bairro="Vila Califórnia(Zona Sul)"
                municipio="São Paulo"
                uf="SP"
-               id_aluno="1" />
+               id_aluno="1"/>
 
 </dataset>

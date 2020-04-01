@@ -72,7 +72,7 @@ public class AlunoCommandService {
         alunoRepository.save(aluno);
     }
 
-    private void valida(final Aluno aluno, Class ... grupos) {
+    private void valida(final Aluno aluno, Class... grupos) {
         Set<ConstraintViolation<Aluno>> constraintViolations = validator.validate(aluno, grupos);
         if (!constraintViolations.isEmpty()) {
             throw new DadosInvalidosException("Dados inválidos", constraintViolations.

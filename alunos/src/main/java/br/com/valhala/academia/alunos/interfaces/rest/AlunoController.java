@@ -17,8 +17,6 @@ import br.com.valhala.academia.alunos.modelo.comandos.ExcluiAlunoCommand;
 import br.com.valhala.academia.alunos.modelo.comandos.NovoAlunoCommand;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ResponseHeader;
 import lombok.extern.java.Log;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.http.HttpStatus;
@@ -27,7 +25,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-import springfox.documentation.swagger.readers.operation.ResponseHeaders;
 
 import javax.validation.Valid;
 import java.util.List;
