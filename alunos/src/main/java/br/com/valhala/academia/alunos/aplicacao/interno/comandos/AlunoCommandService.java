@@ -10,6 +10,7 @@ import br.com.valhala.academia.alunos.modelo.comandos.AtualizaAlunoCommand;
 import br.com.valhala.academia.alunos.modelo.comandos.AtualizaEnderecoCommand;
 import br.com.valhala.academia.alunos.modelo.comandos.ExcluiAlunoCommand;
 import br.com.valhala.academia.alunos.modelo.comandos.NovoAlunoCommand;
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
