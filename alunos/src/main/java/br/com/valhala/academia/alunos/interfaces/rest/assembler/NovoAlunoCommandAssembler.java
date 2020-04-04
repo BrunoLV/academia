@@ -12,23 +12,31 @@ public class NovoAlunoCommandAssembler {
 
     public static NovoAlunoCommand toNovoAlunoCommand(final AlunoResource alunoResource) {
 
+        Endereco endereco = null;
+
         EnderecoResource enderecoResource = alunoResource.getEndereco();
 
-        Logradouro logradouro = Logradouro.
-                builder().
-                tipo(enderecoResource.getTipo()).
-                logradouro(enderecoResource.getLogradouro()).
-                complemento(enderecoResource.getComplemento()).
-                numero(enderecoResource.getNumero()).
-                build();
+        if (enderecoResource != null) {
 
-        CEP cep = new CEP(enderecoResource.getCep());
+            Logradouro logradouro = Logradouro.
+                    builder().
+                    tipo(enderecoResource.getTipo()).
+                    logradouro(enderecoResource.getLogradouro()).
+                    complemento(enderecoResource.getComplemento()).
+                    numero(enderecoResource.getNumero()).
+                    build();
 
-        Endereco endereco = new Endereco(logradouro,
-                cep,
-                enderecoResource.getBairro(),
-                enderecoResource.getMunicipio(),
-                enderecoResource.getUf());
+            CEP cep = new CEP(enderecoResource.getCep());
+
+
+            endereco = new Endereco(logradouro,
+                    cep,
+                    enderecoResource.getBairro(),
+                    enderecoResource.getMunicipio(),
+                    enderecoResource.getUf());
+
+        }
+
 
         Nome nome = Nome.
                 builder().

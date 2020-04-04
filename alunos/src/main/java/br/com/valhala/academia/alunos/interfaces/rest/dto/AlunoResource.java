@@ -16,11 +16,17 @@ import java.time.LocalDate;
 @Builder
 public class AlunoResource implements Serializable {
 
+    @ApiModelProperty(required = false, dataType = "uuid")
     private String guid;
+    @ApiModelProperty(required = true, example = "Geraldo", dataType = "string")
     private String nome;
+    @ApiModelProperty(required = true, example = "Iago", dataType = "string")
     private String nomeDoMeio;
+    @ApiModelProperty(required = true, example = "Moreira", dataType = "string")
     private String sobrenome;
+    @ApiModelProperty(required = true, example = "1996-02-10", dataType = "date")
     private LocalDate dataNascimento;
+    @ApiModelProperty(required = true, dataType = "object")
     private EnderecoResource endereco;
 
     public static AlunoResource aPartirDe(final Aluno aluno) {

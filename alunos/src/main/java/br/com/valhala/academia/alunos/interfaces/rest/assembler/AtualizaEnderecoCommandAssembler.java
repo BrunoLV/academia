@@ -11,21 +11,28 @@ public class AtualizaEnderecoCommandAssembler {
 
     public static AtualizaEnderecoCommand toAtualizaEnderecoCommand(String guid, EnderecoResource enderecoResource) {
 
-        Logradouro logradouro = Logradouro.
-                builder().
-                tipo(enderecoResource.getTipo()).
-                logradouro(enderecoResource.getLogradouro()).
-                complemento(enderecoResource.getComplemento()).
-                numero(enderecoResource.getNumero()).
-                build();
+        Endereco endereco = null;
 
-        CEP cep = new CEP(enderecoResource.getCep());
+        if (enderecoResource != null) {
 
-        Endereco endereco = new Endereco(logradouro,
-                cep,
-                enderecoResource.getBairro(),
-                enderecoResource.getMunicipio(),
-                enderecoResource.getUf());
+            Logradouro logradouro = Logradouro.
+                    builder().
+                    tipo(enderecoResource.getTipo()).
+                    logradouro(enderecoResource.getLogradouro()).
+                    complemento(enderecoResource.getComplemento()).
+                    numero(enderecoResource.getNumero()).
+                    build();
+
+            CEP cep = new CEP(enderecoResource.getCep());
+
+
+            endereco = new Endereco(logradouro,
+                    cep,
+                    enderecoResource.getBairro(),
+                    enderecoResource.getMunicipio(),
+                    enderecoResource.getUf());
+
+        }
 
         return new AtualizaEnderecoCommand(new AlunoID(guid), endereco);
 

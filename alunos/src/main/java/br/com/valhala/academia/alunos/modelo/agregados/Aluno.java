@@ -50,8 +50,10 @@ public class Aluno {
         this.alunoId = new AlunoID();
         this.nome = nome;
         this.dataNascimento = dataNascimento;
-        this.endereco = endereco;
-        this.endereco.atrelaAluno(this);
+        if (endereco != null) {
+            this.endereco = endereco;
+            this.endereco.atrelaAluno(this);
+        }
     }
 
     public void atualizaEndereco(final Endereco endereco) {

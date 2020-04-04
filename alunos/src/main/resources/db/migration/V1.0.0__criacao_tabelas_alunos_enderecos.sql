@@ -13,7 +13,7 @@ create table enderecos (
 	id bigint auto_increment not null,
 	tipo varchar(50) not null,
 	logradouro varchar(200) not null,
-	numero varchar(5),
+	numero varchar(10),
 	complemento varchar(200),
 	cep int(8) not null,
 	bairro varchar(100) not null,
