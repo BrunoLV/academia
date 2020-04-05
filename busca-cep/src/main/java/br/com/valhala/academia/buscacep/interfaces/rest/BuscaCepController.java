@@ -4,6 +4,8 @@ import br.com.valhala.academia.buscacep.aplicacao.exceptions.BuscaCepException;
 import br.com.valhala.academia.buscacep.aplicacao.interno.saida.CorreiosService;
 import br.com.valhala.academia.buscacep.interfaces.rest.dto.EnderecoResource;
 import br.com.valhala.academia.buscacep.modelo.Endereco;
+import com.holonplatform.jaxrs.swagger.annotations.ApiDefinition;
+import io.swagger.annotations.*;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.GET;
