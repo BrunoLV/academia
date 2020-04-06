@@ -11,4 +11,4 @@ services:
 
 networks:
   alunos:
-    driver: cucdstom-driver-1
+    driver: custom-driver-1
