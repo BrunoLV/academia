@@ -1,0 +1,51 @@
+version: '3.7'
+services:
+
+  db:
+    image: mariadb:10.3
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: academia_alunos_db
+      MYSQL_USER: aluno
+      MYSQL_PASSWORD: aluno
+    ports:
+      - 3306:3306
+
+  alunos:
+    build:
+      context: ./alunos
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    links:
+      - "db:database"
+      - "eureka:eureka"
+    depends_on:
+      - db
+      - eureka
+      - buscacep
+    restart: on-failure
+
+  buscacep:
+    build:
+      context: ./busca-cep
+      dockerfile: Dockerfile
+    links:
+      - "eureka:eureka"
+    depends_on:
+      - eureka
+    ports:
+      - 8081:8081
+    restart: on-failure
+
+  eureka:
+    build:
+      context: ./eureka-server
+      dockerfile: Dockerfile
+    ports:
+      - 8761:8761
+    restart: on-failure
+
+networks:
+  alunos:
+    driver: custom-driver-1

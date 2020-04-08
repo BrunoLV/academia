@@ -2,6 +2,7 @@ package br.com.valhala.academia.alunos.aplicacao.interno.comandos;
 
 import br.com.valhala.academia.alunos.aplicacao.exceptions.AlunoNaoEncontradoException;
 import br.com.valhala.academia.alunos.aplicacao.exceptions.DadosInvalidosException;
+import br.com.valhala.academia.alunos.aplicacao.externo.BuscaCepService;
 import br.com.valhala.academia.alunos.aplicacao.validacao.grupos.Edicao;
 import br.com.valhala.academia.alunos.aplicacao.validacao.grupos.Novo;
 import br.com.valhala.academia.alunos.infraestrutura.repositorios.jpa.AlunoRepository;
@@ -10,6 +11,7 @@ import br.com.valhala.academia.alunos.modelo.comandos.AtualizaAlunoCommand;
 import br.com.valhala.academia.alunos.modelo.comandos.AtualizaEnderecoCommand;
 import br.com.valhala.academia.alunos.modelo.comandos.ExcluiAlunoCommand;
 import br.com.valhala.academia.alunos.modelo.comandos.NovoAlunoCommand;
+import br.com.valhala.academia.alunos.modelo.entidades.Endereco;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,13 +30,20 @@ public class AlunoCommandService {
 
     private AlunoRepository alunoRepository;
 
-    public AlunoCommandService(AlunoRepository alunoRepository) {
+    private BuscaCepService buscaCepService;
+
+    public AlunoCommandService(AlunoRepository alunoRepository, BuscaCepService buscaCepService) {
         this.alunoRepository = alunoRepository;
+        this.buscaCepService = buscaCepService;
     }
 
     @Transactional
     public Aluno cadastraAluno(final NovoAlunoCommand command) {
-        Aluno aluno = new Aluno(command.getNome(), command.getDataNascimento(), command.getEndereco());
+
+        Endereco endereco = buscaCepService.completaEndereco(command.getEndereco());
+
+        Aluno aluno = new Aluno(command.getNome(), command.getDataNascimento(), endereco);
+
         valida(aluno, Default.class, Novo.class);
         alunoRepository.save(aluno);
         return aluno;
