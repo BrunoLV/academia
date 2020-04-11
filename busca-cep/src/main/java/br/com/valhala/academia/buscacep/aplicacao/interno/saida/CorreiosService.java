@@ -6,8 +6,10 @@ import br.com.valhala.academia.buscacep.infra.correios.SQLException_Exception;
 import br.com.valhala.academia.buscacep.infra.correios.SigepClienteException;
 import br.com.valhala.academia.buscacep.infra.services.correios.AtendeClienteService;
 import br.com.valhala.academia.buscacep.modelo.Endereco;
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Component;
 
+@Log
 @Component
 public class CorreiosService {
 
@@ -19,6 +21,7 @@ public class CorreiosService {
 
     public Endereco buscaPorCep(final String cep) throws BuscaCepException {
         try {
+            log.info("Chamando correios");
             EnderecoERP enderecoERP = atendeClienteService.consultaCep(cep);
             return Endereco.builder().
                     bairro(enderecoERP.getBairro()).

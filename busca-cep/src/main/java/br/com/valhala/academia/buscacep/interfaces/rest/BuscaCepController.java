@@ -5,6 +5,7 @@ import br.com.valhala.academia.buscacep.aplicacao.interno.saida.CorreiosService;
 import br.com.valhala.academia.buscacep.interfaces.rest.dto.EnderecoResource;
 import br.com.valhala.academia.buscacep.modelo.Endereco;
 import io.swagger.annotations.*;
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.GET;
@@ -13,6 +14,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
+@Log
 @Api(value = "/buscaCep", description = "Operações utilizando CEP para busca de endereços.")
 @Component
 @Path("/buscaCep")
@@ -34,6 +36,8 @@ public class BuscaCepController {
     @Path("/{cep}")
     @Produces(value = "application/json")
     public Response buscaCep(@ApiParam(value = "CEP a ser pesquisado", required = true) @PathParam("cep") final String cep) throws BuscaCepException {
+
+        log.info("Buscando cep : " + cep);
 
         final Endereco endereco = correiosService.buscaPorCep(cep);
 
