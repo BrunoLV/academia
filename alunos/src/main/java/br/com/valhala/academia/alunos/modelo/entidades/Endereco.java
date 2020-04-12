@@ -78,4 +78,8 @@ public class Endereco {
         this.uf = endereco.uf;
     }
 
+    public boolean enderecoCompleto() {
+        return this.cep != null && this.logradouro != null && this.bairro != null && this.municipio != null && this.uf != null;
+    }
+
 }

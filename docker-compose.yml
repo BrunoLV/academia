@@ -1,6 +1,11 @@
 version: '3.7'
 services:
 
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+    - 9411:9411
+
   db:
     image: mariadb:10.3
     environment:
@@ -20,6 +25,7 @@ services:
     links:
       - "db:database"
       - "eureka:eureka"
+      - "zipkin:zipkin"
     depends_on:
       - db
       - eureka
@@ -32,6 +38,7 @@ services:
       dockerfile: Dockerfile
     links:
       - "eureka:eureka"
+      - "zipkin:zipkin"
     depends_on:
       - eureka
     ports:

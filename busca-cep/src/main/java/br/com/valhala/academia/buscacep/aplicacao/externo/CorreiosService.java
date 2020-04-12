@@ -1,4 +1,4 @@
-package br.com.valhala.academia.buscacep.aplicacao.interno.saida;
+package br.com.valhala.academia.buscacep.aplicacao.externo;
 
 import br.com.valhala.academia.buscacep.aplicacao.exceptions.BuscaCepException;
 import br.com.valhala.academia.buscacep.infra.correios.EnderecoERP;
@@ -7,9 +7,10 @@ import br.com.valhala.academia.buscacep.infra.correios.SigepClienteException;
 import br.com.valhala.academia.buscacep.infra.services.correios.AtendeClienteService;
 import br.com.valhala.academia.buscacep.modelo.Endereco;
 import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-@Log
+@Slf4j
 @Component
 public class CorreiosService {
 
@@ -21,7 +22,7 @@ public class CorreiosService {
 
     public Endereco buscaPorCep(final String cep) throws BuscaCepException {
         try {
-            log.info("Chamando correios");
+            log.info("Chamando servico externo dos correios.");
             EnderecoERP enderecoERP = atendeClienteService.consultaCep(cep);
             return Endereco.builder().
                     bairro(enderecoERP.getBairro()).
@@ -31,6 +32,7 @@ public class CorreiosService {
                     uf(enderecoERP.getUf()).
                     build();
         } catch (SigepClienteException | SQLException_Exception e) {
+            log.error("Ocorreu um erro ao chamar o servico externo dos correios. Erro: " + e.getMessage(), e);
             throw new BuscaCepException(e.getMessage());
         }
     }

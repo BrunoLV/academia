@@ -40,9 +40,9 @@ public class AlunoCommandService {
     @Transactional
     public Aluno cadastraAluno(final NovoAlunoCommand command) {
 
-        Endereco endereco = buscaCepService.completaEndereco(command.getEndereco());
-
-        Aluno aluno = new Aluno(command.getNome(), command.getDataNascimento(), endereco);
+        Aluno aluno = new Aluno(command.getNome(),
+                                command.getDataNascimento(),
+                                buscaCepService.completaEndereco(command.getEndereco()));
 
         valida(aluno, Default.class, Novo.class);
         alunoRepository.save(aluno);
@@ -57,7 +57,7 @@ public class AlunoCommandService {
         }
         aluno.atualizaNome(command.getNome());
         aluno.atualizaDataNascimento(command.getDataNascimento());
-        aluno.atualizaEndereco(command.getEndereco());
+        aluno.atualizaEndereco(buscaCepService.completaEndereco(command.getEndereco()));
         valida(aluno, Edicao.class);
         alunoRepository.save(aluno);
     }
