@@ -5,6 +5,7 @@ import br.com.valhala.academia.alunos.interfaces.rest.dto.EnderecoResource;
 import br.com.valhala.academia.alunos.modelo.comandos.NovoAlunoCommand;
 import br.com.valhala.academia.alunos.modelo.entidades.Endereco;
 import br.com.valhala.academia.alunos.modelo.objetosvalor.CEP;
+import br.com.valhala.academia.alunos.modelo.objetosvalor.CPF;
 import br.com.valhala.academia.alunos.modelo.objetosvalor.Logradouro;
 import br.com.valhala.academia.alunos.modelo.objetosvalor.Nome;
 
@@ -45,11 +46,14 @@ public class NovoAlunoCommandAssembler {
                 sobrenome(alunoResource.getSobrenome()).
                 build();
 
+        CPF cpf = new CPF(alunoResource.getCpf());
+
         NovoAlunoCommand command = NovoAlunoCommand.
                 builder().
                 nome(nome).
                 dataNascimento(alunoResource.getDataNascimento()).
                 endereco(endereco).
+                cpf(cpf).
                 build();
 
         return command;

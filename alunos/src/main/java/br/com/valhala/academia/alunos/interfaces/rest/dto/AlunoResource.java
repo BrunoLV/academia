@@ -26,7 +26,10 @@ public class AlunoResource implements Serializable {
     private String sobrenome;
     @ApiModelProperty(required = true, example = "1996-02-10", dataType = "date")
     private LocalDate dataNascimento;
-    @ApiModelProperty(required = true, dataType = "object")
+    @ApiModelProperty(required = true, example = "86135635034", dataType = "number")
+    private Long cpf;
+
+    @ApiModelProperty(required = true, dataType = "EnderecoResource")
     private EnderecoResource endereco;
 
     public static AlunoResource aPartirDe(final Aluno aluno) {
@@ -38,6 +41,7 @@ public class AlunoResource implements Serializable {
                 nomeDoMeio(aluno.getNome().getNomeDoMeio()).
                 sobrenome(aluno.getNome().getSobrenome()).
                 dataNascimento(aluno.getDataNascimento()).
+                cpf(aluno.getCpf().getCpf()).
                 endereco(aluno.getEndereco() != null ? EnderecoResource.aPartirDe(aluno.getEndereco()) : null).
                 build();
 

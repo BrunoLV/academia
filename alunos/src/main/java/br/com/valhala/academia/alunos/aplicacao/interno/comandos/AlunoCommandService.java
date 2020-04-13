@@ -42,7 +42,8 @@ public class AlunoCommandService {
 
         Aluno aluno = new Aluno(command.getNome(),
                                 command.getDataNascimento(),
-                                buscaCepService.completaEndereco(command.getEndereco()));
+                                buscaCepService.completaEndereco(command.getEndereco()),
+                                command.getCpf());
 
         valida(aluno, Default.class, Novo.class);
         alunoRepository.save(aluno);
@@ -58,6 +59,7 @@ public class AlunoCommandService {
         aluno.atualizaNome(command.getNome());
         aluno.atualizaDataNascimento(command.getDataNascimento());
         aluno.atualizaEndereco(buscaCepService.completaEndereco(command.getEndereco()));
+        aluno.atualizaCPF(command.getCpf());
         valida(aluno, Edicao.class);
         alunoRepository.save(aluno);
     }

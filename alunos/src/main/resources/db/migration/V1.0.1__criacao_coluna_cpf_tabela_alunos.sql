@@ -1,0 +1,1 @@
+alter table alunos add cpf bigint not null;

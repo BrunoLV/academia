@@ -3,6 +3,7 @@ package br.com.valhala.academia.alunos.modelo.agregados;
 import br.com.valhala.academia.alunos.aplicacao.validacao.grupos.Edicao;
 import br.com.valhala.academia.alunos.aplicacao.validacao.grupos.Novo;
 import br.com.valhala.academia.alunos.modelo.entidades.Endereco;
+import br.com.valhala.academia.alunos.modelo.objetosvalor.CPF;
 import br.com.valhala.academia.alunos.modelo.objetosvalor.Nome;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,6 +37,12 @@ public class Aluno {
     private Nome nome;
 
     @Getter
+    @Embedded
+    @NotNull(message = "O cpf é um informação obrigatória", groups = {Novo.class, Edicao.class})
+    @Valid
+    private CPF cpf;
+
+    @Getter
     @Column(name = "data_nascimento")
     @NotNull(message = "A data de nascimento é uma informação obrigatória", groups = {Novo.class, Edicao.class})
     private LocalDate dataNascimento;
@@ -46,9 +53,10 @@ public class Aluno {
     @Valid
     private Endereco endereco;
 
-    public Aluno(Nome nome, LocalDate dataNascimento, Endereco endereco) {
+    public Aluno(Nome nome, LocalDate dataNascimento, Endereco endereco, CPF cpf) {
         this.alunoId = new AlunoID();
         this.nome = nome;
+        this.cpf = cpf;
         this.dataNascimento = dataNascimento;
         if (endereco != null) {
             this.endereco = endereco;
@@ -71,5 +79,9 @@ public class Aluno {
 
     public void atualizaDataNascimento(final LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public void atualizaCPF(CPF cpf) {
+        this.cpf = cpf;
     }
 }

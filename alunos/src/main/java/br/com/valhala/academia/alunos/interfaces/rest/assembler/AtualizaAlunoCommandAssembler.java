@@ -6,6 +6,7 @@ import br.com.valhala.academia.alunos.modelo.agregados.AlunoID;
 import br.com.valhala.academia.alunos.modelo.comandos.AtualizaAlunoCommand;
 import br.com.valhala.academia.alunos.modelo.entidades.Endereco;
 import br.com.valhala.academia.alunos.modelo.objetosvalor.CEP;
+import br.com.valhala.academia.alunos.modelo.objetosvalor.CPF;
 import br.com.valhala.academia.alunos.modelo.objetosvalor.Logradouro;
 import br.com.valhala.academia.alunos.modelo.objetosvalor.Nome;
 
@@ -45,10 +46,13 @@ public class AtualizaAlunoCommandAssembler {
                 sobrenome(alunoResource.getSobrenome()).
                 build();
 
+        CPF cpf = new CPF(alunoResource.getCpf());
+
         AtualizaAlunoCommand command = AtualizaAlunoCommand.
                 builder().
                 alunoID(new AlunoID(guid)).
                 nome(nome).
+                cpf(cpf).
                 dataNascimento(alunoResource.getDataNascimento()).
                 endereco(endereco).
                 build();

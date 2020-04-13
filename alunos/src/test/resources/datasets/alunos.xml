@@ -6,6 +6,7 @@
             primeiro_nome="Bruno"
             nome_do_meio="Luiz"
             sobrenome="Viana"
+            cpf="55085399056"
             data_nascimento="1990-01-02"/>
 
     <enderecos id="1"
@@ -23,6 +24,7 @@
             primeiro_nome="Raelma"
             nome_do_meio="Leal"
             sobrenome="Viana"
+            cpf="05405283070"
             data_nascimento="1992-07-29"/>
 
     <enderecos id="2"
@@ -40,6 +42,7 @@
             primeiro_nome="Ellen"
             nome_do_meio="Leal"
             sobrenome="Viana"
+            cpf="05314195097"
             data_nascimento="2015-02-27"/>
 
     <enderecos id="3"

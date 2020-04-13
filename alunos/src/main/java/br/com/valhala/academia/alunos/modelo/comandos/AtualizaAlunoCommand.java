@@ -2,6 +2,7 @@ package br.com.valhala.academia.alunos.modelo.comandos;
 
 import br.com.valhala.academia.alunos.modelo.agregados.AlunoID;
 import br.com.valhala.academia.alunos.modelo.entidades.Endereco;
+import br.com.valhala.academia.alunos.modelo.objetosvalor.CPF;
 import br.com.valhala.academia.alunos.modelo.objetosvalor.Nome;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,5 +22,6 @@ public class AtualizaAlunoCommand {
     private Nome nome;
     private LocalDate dataNascimento;
     private Endereco endereco;
+    private CPF cpf;
 
 }

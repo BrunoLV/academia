@@ -6,6 +6,7 @@
             primeiro_nome="Bruno"
             nome_do_meio="Luiz"
             sobrenome="Viana"
+            cpf="55085399056"
             data_nascimento="1990-01-02"/>
 
     <enderecos id="1"

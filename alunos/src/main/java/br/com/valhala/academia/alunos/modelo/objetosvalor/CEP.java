@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Embeddable
 public class CEP {
 
